@@ -92,14 +92,13 @@ var finances = [
 let total_months = finances.length;
 let total = 0;
 let change = 0;
-let average;
+let average = 0;
 let net = 0 ;
 let netArray = [];
 let netChangeSum = 0;
+let min = ["", 9999999999999];
+let max = ["", 0];
 
-
-
-console.log(total_months)
 
 for(let index = 0; index < finances.length; index++){
     for(let index2 =0; index2 < finances[index].length; index2++){
@@ -108,10 +107,19 @@ for(let index = 0; index < finances.length; index++){
             change = finances[index][index2] - net;
             net = finances[index][index2];
             netArray.push(change);
-            console.log(`Total: ${total}`)
-            console.log(`Change: ${change}`)
-            console.log(`Net: ${net}`)
-            console.log(`NetArray: ${netArray}`)
+
+            if (change > max[1]){
+                max = [finances[index][0] , finances[index][1]]
+            };
+
+            if (change < min[1]){
+                min = [finances[index][0] , finances[index][1]]
+            };
+
+            //console.log(`Total: ${total}`)
+            //console.log(`Change: ${change}`)
+            //console.log(`Net: ${net}`)
+            //console.log(`NetArray: ${netArray}`)
         }
     }
     
@@ -121,10 +129,21 @@ for(let index = 0; index < netArray.length; index++){
     netChangeSum += netArray[index];
 }
 
-average = math.round((netChangeSum/86)*100)/100;
+average = Math.round((netChangeSum/86)*100)/100;
 
 
+Analysis = `Financial Analysis
+------------------------------
+Totoal Months: ${total_months}
+Total: ${total}
+Average Change: ${average};
+least: ${min};
+Greatest: ${max}
 
+`
+
+
+console.log(Analysis);
 
 
 
